@@ -29,14 +29,6 @@ class Migration_create_orders extends CI_Migration {
 				'type' => 'INT',
 				'constraint' => 7
 			),
-			'tax' => array(
-				'type' => 'INT',
-				'constraint' => 3
-			),
-			'discount' => array(
-			   'type' => 'INTEGER',
-			   'constraint' => '3',
-			),
 			'quantity' => array(
 				'type' => 'INT',
 				'constraint' => 5

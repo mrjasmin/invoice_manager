@@ -177,6 +177,18 @@
                         <span class="input-group-addon"><i class="">Date due</i></span>
                         <input type="text" class="form-control datepicker" placeholder="" name="date_due" >    
                     </div>    
+
+                     <div class="form-group input-group">
+                        <span class="input-group-addon"><i class="">Tax %</i></span>
+                        <input type="text" class="form-control" placeholder="" name="tax" > 
+                        <span class="input-group-addon">%</span>   
+                    </div>    
+
+                     <div class="form-group input-group">
+                        <span class="input-group-addon"><i class="">Discount</i></span>
+                        <input type="text" class="form-control" placeholder="" name="discount" >  
+                        <span class="input-group-addon">%</span>  
+                    </div>    
                     
                 </div>
             </div>
@@ -199,8 +211,6 @@
                                 <th>Products</th>
                                 <th>Quantity</th>
                                 <th>Price</th>
-                                <th>Tax</th>
-                                <th>Discount</th>
                                 <th>Total</th>
                             </tr>
                         </thead>
@@ -225,18 +235,6 @@
                                  <div class="form-group input-group">
                                     <span class="input-group-addon">$</span>
                                     <input type="text" class="form-control input_fn" placeholder="" name="price[]" id="price">
-                                </div>
-                            </td>
-                               <td class="col-lg-2">
-                                 <div class="form-group input-group">
-                                    <input type="text" class="form-control input_fn" placeholder="" name="tax[]" id="tax" >
-                                    <span class="input-group-addon">%</span>
-                                </div>
-                            </td>
-                              <td class="col-lg-2">
-                                 <div class="form-group input-group">
-                                    <input type="text" class="form-control input_fn" placeholder="" name="discount[]" id="discount" >
-                                    <span class="input-group-addon">%</span>
                                 </div>
                             </td>
                             <td class="col-lg-1">

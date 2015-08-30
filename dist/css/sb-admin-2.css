@@ -362,7 +362,7 @@ table.dataTable thead .sorting:after {
 
 /*  All invoices */
 
-.actions_list {list-style-type:none; margin: 0; padding: 0;  }
+.actions_list {list-style-type:none; margin: 0; padding: 0;   float: left; width: 150px; }
 
-.actions_list li {display: inline; }
+.actions_list li {display: inline;  }
 

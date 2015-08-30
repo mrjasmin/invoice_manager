@@ -35,13 +35,17 @@ class Invoice extends MY_Model {
 	public function count_active_invoices(){
 
 		$sql = "SELECT * FROM invoices WHERE `status`= 'Active'";
-	
 		return $this->db->query($sql)->num_rows(); 
 	}
 
 	public function most_recent_invoices($num){
 		$sql = "SELECT * FROM `invoices` ORDER BY date_created DESC LIMIT $num;";
 		return $this->db->query($sql)->result('array'); 
+	}
+
+	public function insert_total_price($id, $total){
+		$sql = "UPDATE invoices SET total = $total WHERE ID = $id;";
+		$this->db->query($sql); 
 	}
 		
 }

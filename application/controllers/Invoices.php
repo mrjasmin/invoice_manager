@@ -40,7 +40,7 @@ class Invoices extends CI_Controller {
 	
 		$data_array = array('billing_company' => $_POST['company'], 'date_created' => $_POST['date_created'], 
 			'date_due' => $_POST['date_due'], 'reference_number' => $_POST['reference_number'],
-			'customer' => $customer_id, 'total' => 34, 'paid_amount' => 23, 'status' => 'Active' ); 	
+			'customer' => $customer_id, 'total' => 34, 'paid_amount' => 23, 'status' => 'Active', 'tax' => $_POST['tax'], 'discount' => $_POST['discount'] ); 	
 
     	//Insert invoice into database
 		$this->invoice->insert_invoice($data_array); 
@@ -59,22 +59,27 @@ class Invoices extends CI_Controller {
 
 		$totalOrder = sizeof($article); 
 
+		$total_row = 0;
+		$total_order = 0; 
+
 		for($i = 0; $i<$totalOrder; $i++){
 
-			$total = $price[$i] * $quantity[$i];
-			$disc = 1 - $discount[$i]/100; 
-			$Tax = $tax[$i]/100; 
-			$sumTax = $total * $Tax; 
+			$total_row += $quantity[$i] * $price[$i]; 
 		
-			$sum = ($total + $sumTax) * $disc;  
-
 			$data_array = array('article' => $article[$i], 'description' => $description[$i], 'quantity' => $quantity[$i],
-				'price' => $price[$i], 'tax' => $tax[$i], 'discount' => $discount[$i], 'invoice_id' => $id,
-				'total' => $sum);  
+				'price' => $price[$i],   'invoice_id' => $id, 'total' => $total_row);  
 
 			$this->order->insert_order($data_array); 
 
+			$total_order+= $total_row; 
+			$total_row = 0; 
+
 		}
+		echo $total_order; 
+		
+		$total_amount = (1 + $_POST['tax']/100) * (1 - $_POST['discount']/100) * $total_order; 
+		$this->invoice->insert_total_price($id, $total_amount); 
+
 	}
 
 	public function delete_invoice($id){

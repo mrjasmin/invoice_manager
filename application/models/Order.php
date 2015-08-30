@@ -25,6 +25,11 @@ class Order extends MY_Model {
 	public function insert_order($data){
 		$this->save($data); 
 	}
+
+	public function get_invoice_order($invoice_id){
+		$sql = "SELECT * FROM orders WHERE invoice_id = $invoice_id"; 
+		return $this->db->query($sql)->result('array'); 
+	}
 		
 }
 
