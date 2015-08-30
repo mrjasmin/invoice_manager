@@ -11,7 +11,6 @@ class Migration_create_customers extends CI_Migration {
 		$this->dbforge->add_field(array(
 			'ID' => array(
 				'type' => 'INT',
-				'constraint' => 6,
 				'unsigned' => TRUE,
 				'auto_increment' => TRUE
 			),

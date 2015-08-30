@@ -352,3 +352,13 @@ table.dataTable thead .sorting:after {
 .panel-yellow a:hover {
     color: #df8a13;
 }
+
+/*  Invoice/Create New invoice */
+
+#product_sum { text-align: center; color: green; }
+
+/*  All invoices */
+
+.actions_list {list-style-type:none; margin: 0; padding: 0; }
+
+.actions_list li {display: inline; }

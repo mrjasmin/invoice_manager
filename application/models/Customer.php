@@ -25,6 +25,22 @@ class Customer extends MY_Model {
 	public function insert_customer($data){
 		$this->save($data); 
 	}
+
+	public function get_customer_ID($name){
+		
+		$Name = $this->db->escape($name); 
+		$sql = "SELECT ID from $_table_name WHERE company = $Name";
+		$result = $this->db->query($sql)->row_array(); 
+
+		return $result['ID']; 
+	}
+
+	public function get_customer_name($id){
+		$sql = "SELECT company FROM $this->$_table_name WHERE ID = $id";
+		$result = $this->db->query($sql); 
+
+		return $result; 
+	}
 		
 }
 

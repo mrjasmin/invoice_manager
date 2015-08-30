@@ -1,6 +1,6 @@
 <?php
 
-class Customers extends CI_Controller {
+class Orders extends CI_Controller {
 
 	public function __construct(){
 		parent::__construct();
@@ -22,6 +22,19 @@ class Customers extends CI_Controller {
 			$this->load->view('login'); 
 		}
 
+	 }
+
+   
+	public new_order_form(){
+		
+	}
+
+    public function new_invoice_form(){
+    	$this->load->view('new_invoice'); 
+    }
+
+
+    public function new_customer(){
     	
     	$data_array = array('company' => $_POST['company'], 
 						'city' => $_POST['city'], 
@@ -29,15 +42,6 @@ class Customers extends CI_Controller {
 						'country'=> $_POST['country'], 
 						'phone'=> $_POST['phone'], 
 						'email'=> $_POST['email']);  
-	 }
-
-   
-    public function new_customer_form(){
-    	$this->load->view('new_customer'); 
-    }
-
-
-    public function new_customer(){
 
 	    $config = array(
 					array(
@@ -78,14 +82,6 @@ class Customers extends CI_Controller {
 			$this->customer->insert_customer($data_array); 
 			redirect('customers'); 
 		}
-    }
-
-    public function get_customers(){
-    	$this->customer->get_customers(); 
-    }
-
-    public function get_customer_name($id){
-    	echo "xXX"; 
     }
 	
 }
