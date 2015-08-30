@@ -84,6 +84,7 @@ class Invoices extends CI_Controller {
 
 	public function delete_invoice($id){
 		$this->invoice->delete_invoice($id); 
+		redirect('invoices'); 
 	}
 
 

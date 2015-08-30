@@ -2,6 +2,8 @@
 
 class Download extends CI_Controller {
 
+	private $excelObj;
+
 	public function __construct(){
 		parent::__construct();
 		$this->load->helper('form');
@@ -15,6 +17,8 @@ class Download extends CI_Controller {
 		
 		//Configure PHPExcel
 		$this->settings(); 
+
+		$this->excelObj = new PHPExcel_Custom(); 
 		
 	}
 	
@@ -24,21 +28,23 @@ class Download extends CI_Controller {
 
 	public function downloadXLS($invoice_id, $customer_id){
 
+		$this->setSettings($invoice_id, $customer_id); 
+		$this->excelObj->downloadFileXLS(); 
+
+	}
+
+	private function setSettings($invoice_id, $customer_id){
+		
 		$orders = $this->order->get_invoice_order($invoice_id); 
 		$invoice = $this->invoice->get_invoices($invoice_id); 
 		$customer = $this->customer->get_customers($customer_id); 
 
-		//foreach($orders as $order){
-		//	echo $order['article']; 
-		//}
-
-		$excelObj = new PHPExcel_Custom(); 
-		$excelObj->set_settings($invoice, $orders, $customer); 
-
+		$this->excelObj->set_settings($invoice, $orders, $customer); 
 	}
 	
-	public function downloadPDF($invoice_id){
-
+	public function downloadPDF($invoice_id, $customer_id){
+		$this->setSettings($invoice_id, $customer_id);  
+		$this->excelObj->downloadFilePDF(); 	
 	}
 
 	private function settings(){
@@ -46,5 +52,11 @@ class Download extends CI_Controller {
 		require_once('dist/phpexcel/PHPExcel_Custom.php'); 
 	}
 	
+
+	public function savePDF($invoice_id, $customer_id){
+		
+		$this->setSettings($invoice_id, $customer_id); 
+		$this->excelObj->savePDF(); 
+	}
 
 }

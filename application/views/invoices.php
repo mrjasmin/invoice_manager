@@ -11,6 +11,8 @@
 
     <title>Invoice Manager v1.0</title>
 
+    <!-- Magnific Popup core CSS file -->
+    <link rel="stylesheet" href="<?php echo site_url('dist/css/magnific-popup/magnific-popup.css');?>"> 
 
      <!-- Bootstrap Core CSS -->
     <link href="<?php echo site_url('bower_components/bootstrap/dist/css/bootstrap.min.css');?>" rel="stylesheet">
@@ -162,7 +164,7 @@
                                              
                                              <td class="col-lg-1">
                                                 <ul class="actions_list">
-                                                    <li><a href="#" title="Download "><img src="<?php echo site_url().'img/pdf.png';?>"></a></li>
+                                                    <li><a href="<?php echo base_url().'Download/downloadPDF/' . $invoice['ID']. '/'. $invoice['customer'];?>" title="Download "><img src="<?php echo site_url().'img/pdf.png';?>"></a></li>
                                                     <li><a href="<?php echo base_url().'Download/downloadXLS/' . $invoice['ID']. '/'. $invoice['customer'];?>" title="edit"><img src="<?php echo site_url().'img/excel.png';?>"></a></li>
                                                     <li><a href="#" title="edit"><img src="<?php echo site_url().'img/edit.png';?>"></a></li>
                                                     <li><a href="<?php echo base_url() . 'invoices/delete_invoice/' . $invoice['ID'];?>" title="delete"><img src="<?php echo site_url().'img/delete.png';?>"></a></li>
@@ -210,6 +212,9 @@
      <!-- DataTables JavaScript -->
     <script src="<?php echo site_url('bower_components/datatables/media/js/jquery.dataTables.min.js');?>"></script>
     <script src="<?php echo site_url('bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js');?>"></script>
+
+    <!-- Magnific Popup core JS file -->
+    <script src="<?php echo site_url('dist/js/jquery.magnific-popup.js');?>"></script>
 
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
     <script>

@@ -43,8 +43,9 @@ class PHPExcel_Custom {
 		$this->init(); 
 		$this->loadTemplate(); 
 		$this->populateTemplate(); 
-		$this->downloadFile(); 
+		
 	}
+
 
 
 	private function init(){
@@ -57,10 +58,25 @@ class PHPExcel_Custom {
 		if (PHP_SAPI == 'cli')
 			die('This example should only be run from a Web Browser');
 
-		//set_include_path(site_url());
-
 		/** Include PHPExcel */
 		require_once 'dist/phpexcel/Classes/PHPExcel.php';
+
+		//	Change these values to select the Rendering library that you wish to use
+		//and its directory location on your server
+		$rendererName = PHPExcel_Settings::PDF_RENDERER_MPDF;
+
+		$rendererLibrary = 'mpdf60';
+		
+		$rendererLibraryPath = 'dist/phpexcel/libraries/PDF/'.$rendererLibrary; 
+
+		if (!PHPExcel_Settings::setPdfRenderer(
+			$rendererName,
+			$rendererLibraryPath
+			)) {
+			die(
+				$rendererLibraryPath
+			);
+		}
 
 		$this->objPHPExcel =  new PHPExcel();
 		$this->objReader =  PHPExcel_IOFactory::createReader('Excel5');
@@ -70,10 +86,10 @@ class PHPExcel_Custom {
 		
 		// Create new PHPExcel object
 		$this->objPHPExcel = $this->objReader->load('dist/phpexcel/templates/invoice_template.xls');
+
 	}
 
 	private function populateTemplate(){
-
 
 
 		$this->objPHPExcel->getActiveSheet()->setCellValue('B9', $this->customer['company']); 
@@ -90,17 +106,21 @@ class PHPExcel_Custom {
 		
 		$this->objPHPExcel->getActiveSheet()->setCellValue('F32', $this->invoice['discount']. ' %'); 
 		$this->objPHPExcel->getActiveSheet()->setCellValue('F33', $this->invoice['tax']. ' %'); 
-		$this->objPHPExcel->getActiveSheet()->setCellValue('F33', $this->invoice['total']); 
+		$this->objPHPExcel->getActiveSheet()->setCellValue('F34', $this->invoice['total']); 
+
 		$this->objPHPExcel->getActiveSheet()->setCellValue('F35', $this->invoice['paid_amount']); 
-		
-		$this->objPHPExcel->getActiveSheet()->setCellValue('F35', $this->invoice['total']  - $this->invoice['paid_amount']); 
+
+		$this->objPHPExcel->getActiveSheet()->setCellValue('F36', $this->invoice['total']  - $this->invoice['paid_amount']); 
+
+		$this->create_orders(); 
 
 	}
 
 	private function create_orders(){
+		
 		$startRow = 15; 
 		$totalCost = 0; 
-
+		
 		foreach($this->orders as $order){
 			$this->objPHPExcel->getActiveSheet()->setCellValue('B'.$startRow, $order['article']); 
 			$this->objPHPExcel->getActiveSheet()->setCellValue('C'.$startRow, $order['description']);
@@ -114,10 +134,11 @@ class PHPExcel_Custom {
 		}
 
 		$this->objPHPExcel->getActiveSheet()->setCellValue('F31', $totalCost); 
+		$this->objPHPExcel->getActiveSheet()->setShowGridlines(false);
 
 	}
 
-    public function downloadFile(){
+    public function downloadFileXLS(){
     	// Redirect output to a client’s web browser (Excel5)
     	header('Content-Type: application/vnd.ms-excel');
     	header('Content-Disposition: attachment;filename="asadas.xls"');
@@ -135,5 +156,25 @@ class PHPExcel_Custom {
 		$objWriter->save('php://output');
 		exit;
     }
+
+    public function downloadFilePDF(){
+    	
+    	header('Content-Type: application/pdf');
+		header('Content-Disposition: attachment;filename="01simple.pdf"');
+		header('Cache-Control: max-age=0');
+
+		$objWriter = PHPExcel_IOFactory::createWriter($this->objPHPExcel, 'PDF');
+		$objWriter->save('php://output');
+		exit;
+    }
+
+     public function savePDF(){
+    	
+		$objWriter = PHPExcel_IOFactory::createWriter($this->objPHPExcel, 'PDF');
+		$objWriter->save('uploads/invoices/test.pdf');
+		exit;
+		
+    }
+
 	
 }
