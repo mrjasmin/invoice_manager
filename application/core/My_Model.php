@@ -42,7 +42,6 @@ class MY_Model extends CI_Model {
 	}
 	
 
-
 	public function get_num_rows(){
 		return $this->db->count_all($this->_table_name); 
 	}		

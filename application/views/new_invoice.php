@@ -187,9 +187,7 @@
                     <div class="panel-heading">
                     Add Products
                  </div>
-                 <div id="addDelButtons">
-                <input type="button" id="btnAdd" value="add section"> <input type="button" id="btnDel" value="remove section above">
-            </div>
+               
                  <!-- /.panel-heading -->
                  <div class="panel-body">
                   <div id="entry1" class="clonedInput">
@@ -248,10 +246,15 @@
                         </tbody>
                         </table>
                     </div>
+                     
                     <!-- /.table-responsive -->   
-                </div>
+                </div> 
+
+                <div id="addDelButtons">
+                    <div id="btnAdd"></div><div id="btnDel"></div>
+               </div>
                 <!-- /.panel-body -->
-            </div>
+            </div>  
             <!-- /.panel -->
         </div>
         <!-- col-lg-6 -->

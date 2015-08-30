@@ -160,11 +160,12 @@
                                              echo "<td>" .$invoice['total']. "</td>";
                                              echo "<td>" .$invoice['paid_amount']. "</td>"; ?>
                                              
-                                             <td>
+                                             <td class="col-lg-1">
                                                 <ul class="actions_list">
                                                     <li><a href="#" title="Download "><img src="<?php echo site_url().'img/pdf.png';?>"></a></li>
                                                     <li><a href="#" title="edit"><img src="<?php echo site_url().'img/edit.png';?>"></a></li>
-                                                    <li><a href="#" title="delete"><img src="<?php echo site_url().'img/delete.png';?>"></a></li>
+                                                    <li><a href="<?php echo base_url() . 'invoices/delete_invoice/' . $invoice['ID'];?>" title="delete"><img src="<?php echo site_url().'img/delete.png';?>"></a></li>
+                                                    <li><a href="#" title="edit"><img src="<?php echo site_url().'img/email.png';?>"></a></li>
                                                </ul> 
                                              </td>
                                              
@@ -180,7 +181,7 @@
                                 </table>
                             </div>
 
-                <a href="<?php echo base_url().'customers/new_customer_form';?>" class="btn btn-default">New customer</a>
+                <a href="<?php echo base_url().'invoices/new_invoice_form';?>" class="btn btn-default">New invoice</a>
             </div>
           
         </div>

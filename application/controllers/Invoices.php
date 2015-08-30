@@ -49,6 +49,8 @@ class Invoices extends CI_Controller {
 
 		$this->insertOrders($lastID); 
 
+		redirect('invoices'); 
+
 	}
 
 	private function insertOrders($id){
@@ -75,7 +77,13 @@ class Invoices extends CI_Controller {
 		}
 	}
 
-	public function delete_invoice(){
+	public function delete_invoice($id){
+		$this->invoice->delete_invoice($id); 
+	}
+
+
+	public function edit_invoice($id){
 		
 	}
+
 }

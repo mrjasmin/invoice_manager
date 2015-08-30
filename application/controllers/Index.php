@@ -10,6 +10,9 @@ class Index extends CI_Controller {
 		$this->load->library('session');
 		$this->load->library('encrypt');
 		$this->load->model('user');
+		$this->load->model('invoice');
+		$this->load->model('customer');
+		$this->load->helper('date');
 	}
 	
 	function index(){
@@ -20,7 +23,12 @@ class Index extends CI_Controller {
 	
 	function login_(){
 		if($this->session->userdata('logged_in')){
-			$this->load->view('dashboard'); 
+			$data_array['total_invoices'] = $this->invoice->count_invoices(); 
+			$data_array['active_invoices'] = $this->invoice->count_active_invoices();
+			$data_array['total_customers'] = $this->customer->count_customers(); 
+			$data_array['recent_invoices'] = $this->invoice->most_recent_invoices(4); 
+
+			$this->load->view('dashboard', $data_array);  
 		}
 		else {
 			$this->login(); 
