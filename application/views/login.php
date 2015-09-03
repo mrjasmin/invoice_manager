@@ -56,7 +56,7 @@
                     
                     <?php echo validation_errors(); ?>
 
-                    <?php echo form_open('Index/login_'); ?>
+                    <?php echo form_open('Index'); ?>
         
                     <?php
                     

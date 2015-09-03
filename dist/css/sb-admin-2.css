@@ -357,8 +357,12 @@ table.dataTable thead .sorting:after {
 
 #product_sum { text-align: center; color: green; }
 
-#btnAdd {display: block; background-image: url('../../img/add_order.png');  width: 32px; height: 32px; cursor: pointer;}
-#btnDel {display: block; background-image: url('../../img/delete_order.png');  width: 32px; height: 32px;}
+
+
+#addDelButtons { }
+
+#btnAdd {   border:none;    outline:none; float: left; background-image: url('../../img/add_order.png');  background-color: Transparent; width: 32px; height: 32px; cursor: pointer;}
+#btnDel {  border: none;   outline:none; float: left; background-image: url('../../img/delete_order.png');  background-color: Transparent; width: 32px; height: 32px;}
 
 /*  All invoices */
 
@@ -366,3 +370,4 @@ table.dataTable thead .sorting:after {
 
 .actions_list li {display: inline;  }
 
+.expiring_invoices {text-align: center; }

@@ -88,13 +88,13 @@
                     <ul class="nav" id="side-menu">
                       
                         <li>
-                            <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                            <a href="<?php echo site_url();?>"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
-                        <li>
+                        <li class ="active">
                             <a href=""><i class="fa fa-users fa-fw"></i>  Customers<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="flot.html">Add new</a>
+                                    <a class="active" href="<?php echo site_url() .'customers/new_customer_form';?>">Add new</a>
                                 </li>
                                 <li>
                                     <a href="<?php echo site_url() .'customers';?>">List all</a>
@@ -103,7 +103,17 @@
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="tables.html"><i class="fa fa-money fa-fw"></i> Invoices</a>
+                           <li>
+                                <a href="tables.html"><i class="fa fa-money fa-fw"></i> Invoices<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="<?php echo site_url(). 'invoices/new_invoice_form';?>">Add new</a>
+                                    </li>
+                                    <li>
+                                        <a href="<?php echo site_url() .'invoices';?>">List all</a>
+                                    </li>
+                                </ul>
+                            </li>
                         </li>
                         <li>
                             <a href="forms.html"><i class="fa fa-users fa-fw"></i>Users</a>

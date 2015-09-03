@@ -90,13 +90,13 @@
                     <ul class="nav" id="side-menu">
                       
                         <li>
-                            <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                            <a href="<?php echo site_url();?>"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
-                        <li>
+                        <li >
                             <a href=""><i class="fa fa-users fa-fw"></i>  Customers<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="flot.html">Add new</a>
+                                <li >
+                                    <a href="<?php echo site_url(). 'customers/new_customer_form';?>">Add new</a>
                                 </li>
                                 <li>
                                     <a href="<?php echo site_url() .'customers';?>">List all</a>
@@ -104,8 +104,16 @@
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
-                        <li>
-                            <a href="tables.html"><i class="fa fa-money fa-fw"></i> Invoices</a>
+                        <li class="active">
+                            <a href="tables.html"><i class="fa fa-money fa-fw"></i> Invoices<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                    <li>
+                                        <a class="active" href="<?php echo site_url(). 'invoices/new_invoice_form';?>">Add new</a>
+                                    </li>
+                                    <li>
+                                        <a href="<?php echo site_url() .'invoices';?>">List all</a>
+                                    </li>
+                                </ul>
                         </li>
                         <li>
                             <a href="forms.html"><i class="fa fa-users fa-fw"></i>Users</a>
@@ -171,11 +179,13 @@
                     <div class="form-group input-group">
                         <span class="input-group-addon"><i class="">Date </i></span>
                         <input type="text" class="form-control datepicker" placeholder="" name="date_created" >      
+                         <span class="input-group-addon"><i class="fa fa-calendar fa-fw"> </i></span>
                     </div>    
 
                     <div class="form-group input-group">
                         <span class="input-group-addon"><i class="">Date due</i></span>
-                        <input type="text" class="form-control datepicker" placeholder="" name="date_due" >    
+                        <input type="text" class="form-control datepicker" placeholder="" name="date_due" > 
+                        <span class="input-group-addon"><i class="fa fa-calendar fa-fw"> </i></span>   
                     </div>    
 
                      <div class="form-group input-group">
@@ -195,13 +205,8 @@
 
             <div class="row">
               <div class="col-lg-7">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                    Add Products
-                 </div>
-               
-                 <!-- /.panel-heading -->
-                 <div class="panel-body">
+               <div class="table-responsive" id="order_form">
+                   
                   <div id="entry1" class="clonedInput">
                    <div class="table-responsive" id="order_form">
                     <table class="table table-bordered table-hover table-striped">
@@ -216,7 +221,9 @@
                         </thead>
                         <tbody>   
                             <tr>
-                                <td>  </td>
+                                <td>
+                                    
+                                </td>
                                 <td> 
                                     <div class="form-group">
                                         <input class="form-control input_fn" placeholder="article" name="article[]" id="article"> 
@@ -244,17 +251,27 @@
                         </tbody>
                         </table>
                     </div>
-                     
+
                     <!-- /.table-responsive -->   
                 </div> 
 
-                <div id="addDelButtons">
-                    <div id="btnAdd"></div><div id="btnDel"></div>
-               </div>
-                <!-- /.panel-body -->
-            </div>  
-            <!-- /.panel -->
-        </div>
+                 <table class="table table-bordered table-hover table-striped">
+                        <thead>
+                            <tr>
+                                <th>Add/remove products</th>
+                            </tr>
+                        </thead>
+                          <tbody>   
+                            <tr>
+                                <td><div id="addDelButtons">
+                                        <input type="button" id="btnAdd"></div>
+                                        <input type="button" id="btnDel"></div>
+                                    </div> </td>
+                            </tr>
+                        </tbody>
+                    </table>
+              </div>
+           
         <!-- col-lg-6 -->
     </div>
     <br/>

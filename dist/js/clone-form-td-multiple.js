@@ -33,38 +33,13 @@ $(function () {
             newNum  = new Number(num + 1),      // The numeric ID of the new input field being added, increasing by 1 each time
             newElem = $('#entry' + num).clone().attr('id', 'entry' + newNum).fadeIn('slow'); // create the new element via clone(), and manipulate it's ID using newNum value
     
-    /*  This is where we manipulate the name/id values of the input inside the new, cloned element
-        Below are examples of what forms elements you can clone, but not the only ones.
-        There are 2 basic structures below: one for an H2, and one for form elements.
-        To make more, you can copy the one for form elements and simply update the classes for its label and input.
-        Keep in mind that the .val() method is what clears the element when it gets cloned. Radio and checkboxes need .val([]) instead of .val('').
-    */
-      
-    /*
-        // Article- text
-        newElem.find('.label_fn').attr('for', 'ID' + newNum + '_article');
-        newElem.find('.input_fn').attr('id', 'ID' + newNum + '_article').attr('name', 'ID' + newNum + '_article').val('');
-
-        // Description - text
-        newElem.find('.label_ln').attr('for', 'ID' + newNum + '_description');
-        newElem.find('.input_ln').attr('id', 'ID' + newNum + '_description').attr('name', 'ID' + newNum + '_description').val('');
-
-        // Price - text
-        newElem.find('.label_ln').attr('for', 'ID' + newNum + '_price');
-        newElem.find('.input_ln').attr('id', 'ID' + newNum + '_price').attr('name', 'ID' + newNum + '_price').val('');
-
-        // Price - text
-        newElem.find('.label_ln').attr('for', 'ID' + newNum + '_price');
-        newElem.find('.input_ln').attr('id', 'ID' + newNum + '_price').attr('name', 'ID' + newNum + '_price').val('');
-
-     */
+        console.log('hejsan'); 
 
     // Insert the new element after the last "duplicatable" input field
         $('#entry' + num).after(newElem);
         $('#ID' + newNum + '_title').focus();
 
-    // Enable the "remove" button. This only shows once you have a duplicated section.
-        $('#btnDel').attr('disabled', false);
+         $('#btnDel').attr('disabled', false);
 
     // Right now you can only add 4 sections, for a total of 5. Change '5' below to the max number of sections you want to allow.
         if (newNum == 5)
@@ -82,7 +57,9 @@ $(function () {
                     if (num -1 === 1)
                 $('#btnDel').attr('disabled', true);
                 // enable the "add" button
-                $('#btnAdd').attr('disabled', false).prop('value', "add section");});
+                $('#btnAdd').attr('disabled', false)});
+
+                $('#btnDel').attr('disabled', false);
             }
         return false; // Removes the last section you added
     });

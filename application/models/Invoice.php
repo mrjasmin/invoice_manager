@@ -47,6 +47,15 @@ class Invoice extends MY_Model {
 		$sql = "UPDATE invoices SET total = $total WHERE ID = $id;";
 		$this->db->query($sql); 
 	}
+
+	public function get_exipring_in($days){
+
+		
+		$sql = "SELECT * FROM $this->_table_name WHERE date_due - CURDATE() BETWEEN 1 AND $days;"; 
+
+		return $this->db->query($sql)->result('array'); 
+
+	}
 		
 }
 

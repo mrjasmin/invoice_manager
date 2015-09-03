@@ -16,25 +16,23 @@ class Index extends CI_Controller {
 	}
 	
 	function index(){
-
-		$this->login_(); 
-
-	}
-	
-	function login_(){
 		if($this->session->userdata('logged_in')){
 			$data_array['total_invoices'] = $this->invoice->count_invoices(); 
 			$data_array['active_invoices'] = $this->invoice->count_active_invoices();
 			$data_array['total_customers'] = $this->customer->count_customers(); 
 			$data_array['recent_invoices'] = $this->invoice->most_recent_invoices(4); 
-
+			$data_array['expiring_invoices'] = $this->invoice->get_exipring_in(5); 
+		
 			$this->load->view('dashboard', $data_array);  
 		}
 		else {
 			$this->login(); 
 		}
+
+
+	
 	}
-    
+	    
 	private function login(){
 		
 			$config = array(
@@ -71,8 +69,14 @@ class Index extends CI_Controller {
 
 
 					$this->session->set_userdata($session_data); 
+					
+					$data_array['total_invoices'] = $this->invoice->count_invoices(); 
+					$data_array['active_invoices'] = $this->invoice->count_active_invoices();
+					$data_array['total_customers'] = $this->customer->count_customers(); 
+					$data_array['recent_invoices'] = $this->invoice->most_recent_invoices(4); 
 
-					$this->load->view('dashboard'); 
+
+					$this->load->view('dashboard', $data_array); 
 
 				}
 				else {

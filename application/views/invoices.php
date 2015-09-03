@@ -11,8 +11,7 @@
 
     <title>Invoice Manager v1.0</title>
 
-    <!-- Magnific Popup core CSS file -->
-    <link rel="stylesheet" href="<?php echo site_url('dist/css/magnific-popup/magnific-popup.css');?>"> 
+  
 
      <!-- Bootstrap Core CSS -->
     <link href="<?php echo site_url('bower_components/bootstrap/dist/css/bootstrap.min.css');?>" rel="stylesheet">
@@ -90,7 +89,7 @@
                     <ul class="nav" id="side-menu">
                       
                         <li>
-                            <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                            <a href="<?php echo site_url(). 'Index';?>"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
                         <li>
                             <a href=""><i class="fa fa-users fa-fw"></i>  Customers<span class="fa arrow"></span></a>
@@ -104,9 +103,19 @@
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
-                        <li>
-                            <a href="tables.html"><i class="fa fa-money fa-fw"></i> Invoices</a>
-                        </li>
+                       
+                             <li class="active">
+                                <a href="tables.html"><i class="fa fa-money fa-fw"></i> Invoices<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="<?php echo site_url(). 'invoices/new_invoice_form';?>">Add new</a>
+                                    </li>
+                                    <li>
+                                        <a class="active" href="<?php echo site_url() .'invoices';?>">List all</a>
+                                    </li>
+                                </ul>
+                            </li>
+                    
                         <li>
                             <a href="forms.html"><i class="fa fa-users fa-fw"></i>Users</a>
                         </li>
@@ -174,7 +183,6 @@
                                             
                                              <?php
                                              echo "</tr>";
-
                                          }
                                          ?>
 
@@ -213,8 +221,7 @@
     <script src="<?php echo site_url('bower_components/datatables/media/js/jquery.dataTables.min.js');?>"></script>
     <script src="<?php echo site_url('bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js');?>"></script>
 
-    <!-- Magnific Popup core JS file -->
-    <script src="<?php echo site_url('dist/js/jquery.magnific-popup.js');?>"></script>
+  
 
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
     <script>

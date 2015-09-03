@@ -22,13 +22,7 @@ class Customers extends CI_Controller {
 			$this->load->view('login'); 
 		}
 
-    	
-    	$data_array = array('company' => $_POST['company'], 
-						'city' => $_POST['city'], 
-						'address'=> $_POST['address'], 
-						'country'=> $_POST['country'], 
-						'phone'=> $_POST['phone'], 
-						'email'=> $_POST['email']);  
+    
 	 }
 
    
@@ -69,6 +63,13 @@ class Customers extends CI_Controller {
 
 		$this->form_validation->set_rules($config);
 		$validation = $this->form_validation->run();
+
+		$data_array = array('company' => $_POST['company'], 
+						'city' => $_POST['city'], 
+						'address'=> $_POST['address'], 
+						'country'=> $_POST['country'], 
+						'phone'=> $_POST['phone'], 
+						'email'=> $_POST['email']);  
 
 		if($validation == FALSE){
 			$this->new_customer_form(); 
