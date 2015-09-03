@@ -4,7 +4,7 @@
 ![alt tag](http://ecbiz158.inmotionhosting.com/~jasmin21/invoices.png)
 
 
-v 1.0
+<b>v 1.0</b>
 
 * Easy to use!
 * Responsive layout 
@@ -15,7 +15,7 @@ v 1.0
 * Set tax rates
 
 
-Version 1.1 (Coming soon)
+<b>Version 1.1 (Coming soon)</b>
 
 + [TODO] Multiple languages can be switched in admin.
 + [TODO] Customer statistics
