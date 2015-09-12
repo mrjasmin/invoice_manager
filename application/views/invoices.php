@@ -11,9 +11,8 @@
 
     <title>Invoice Manager v1.0</title>
 
-  
-
-
+    <!-- Bootstrap Core CSS -->
+    <link href="<?php echo site_url('dist/css/all.min.css');?>" rel="stylesheet">
 
      <!-- Bootstrap Core CSS -->
     <link href="<?php echo site_url('bower_components/bootstrap/dist/css/bootstrap.min.css');?>" rel="stylesheet">
@@ -23,12 +22,6 @@
 
     <!-- Custom CSS -->
     <link href="<?php echo site_url('dist/css/sb-admin-2.css');?>" rel="stylesheet">
-
-    <!-- Timeline CSS -->
-    <link href="<?php echo site_url('dist/css/timeline.css');?>" rel="stylesheet">
-
-    <!-- Morris Charts CSS -->
-    <link href="<?php echo site_url('bower_components/morrisjs/morris.css');?>" rel="stylesheet">
 
     <!-- Custom Fonts -->
     <link href="<?php echo site_url('bower_components/font-awesome/css/font-awesome.min.css'); ?>" rel="stylesheet" type="text/css">
@@ -152,6 +145,33 @@
             <!-- link that opens popup -->
             
             <div class="row">
+
+            
+
+                <form id="test-form" class="mfp-hide white-popup-block">
+                <h1>Send invoice id <label id="inv_id"></label></h1>
+                <input type="hidden" name="customerID" class="customerID">
+                <fieldset style="border:0;">
+                    <p>Please fill in the information below</p>
+                    <div class="form-group input-group">
+                        <span class="input-group-addon"><i class="">To</i></span>
+                        <input type="text" class="form-control" placeholder="" name="email_to" value="" id="email_to">                                
+                    </div> 
+                    <div class="form-group input-group">
+                        <span class="input-group-addon"><i class="">Subject</i></span>
+                        <input type="text" class="form-control" placeholder="" name="email_subject" value="" id="email_subject">                                
+                    </div> 
+                    <div class="form-group">
+                        <label>Message</label>
+                        <textarea class="form-control" rows="3" id="email_message"></textarea>
+                    </div>
+                </fieldset>
+
+                <?php $button = array('class' => 'btn btn-default', 'id' => 'email_submit', 'type' => 'submit', 'name' => 'submit', 'content' => 'Send'); ?>
+
+                <?php echo form_button($button);?>
+
+            </form>
                    <div class="panel-body">
                             <div class="dataTable_wrapper">
                                 <table class="table table-striped table-bordered table-hover" id="dataTables-example">
@@ -175,7 +195,7 @@
                                              echo "<td>" .$invoice['date_created']. "</td>";
                                              echo "<td>" .$invoice['billing_company']. "</td>";
                                              echo "<td>" .$invoice['reference_number']. "</td>";
-                                             echo "<td>" .$invoice['customer']. "</td>";
+                                             echo "<td class='customer' id='.invoice[customer]'>" .$invoice['customer']. "</td>";
                                              echo "<td>" .$invoice['total']. "</td>";
                                              echo "<td>" .$invoice['paid_amount']. "</td>"; ?>
                                              
@@ -184,8 +204,9 @@
                                                     <li><a href="<?php echo base_url().'Download/downloadPDF/' . $invoice['ID']. '/'. $invoice['customer'];?>" title="Download "><img src="<?php echo site_url().'img/pdf.png';?>"></a></li>
                                                     <li><a href="<?php echo base_url().'Download/downloadXLS/' . $invoice['ID']. '/'. $invoice['customer'];?>" title="edit"><img src="<?php echo site_url().'img/excel.png';?>"></a></li>
                                                     <li><a href="<?php echo base_url(). 'invoices/edit_invoice_form/' . $invoice['ID'];?>"><img src="<?php echo site_url().'img/edit.png';?>"></a></li>
-                                                    <li><a href="<?php echo base_url() . 'invoices/delete_invoice/' . $invoice['ID'];?>" title="delete"><img src="<?php echo site_url().'img/delete.png';?>"></a></li>
-                                                    <li><a href="#" title="edit"><img src="<?php echo site_url().'img/email.png';?>"></a></li>
+                                                    <li><a href="<?php echo base_url() . 'invoices/delete_invoice/' . $invoice['ID'];?>" onClick="return confirm('You are going to delete this invoice. Are you sure?')"
+                                                        title="delete"><img src="<?php echo site_url().'img/delete.png';?>"></a></li>
+                                                    <li><a href="#test-form" title="email" id="<?php echo $invoice['ID'];?>" class="popup-with-form email"><img src="<?php echo site_url().'img/email.png';?>"></a></li>
                                                </ul> 
                                              </td>
                                             
@@ -219,11 +240,6 @@
     <!-- Metis Menu Plugin JavaScript -->
     <script src="<?php echo site_url('bower_components/metisMenu/dist/metisMenu.min.js');?>"></script>
 
-    <!-- Morris Charts JavaScript -->
-    <script src="../bower_components/raphael/raphael-min.js"></script>
-    <script src="../bower_components/morrisjs/morris.min.js"></script>
-    <script src="../js/morris-data.js"></script>
-
     <!-- Custom Theme JavaScript -->
     <script src="<?php echo site_url('dist/js/sb-admin-2.js'); ?>"></script>
 
@@ -231,6 +247,8 @@
     <script src="<?php echo site_url('bower_components/datatables/media/js/jquery.dataTables.min.js');?>"></script>
     <script src="<?php echo site_url('bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js');?>"></script>
 
+    <!-- LightBox -->
+    <script src="<?php echo site_url('dist/js/jquery.magnific-popup.min.js');?>"></script>
 
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
     <script>
@@ -241,7 +259,88 @@
     });
     </script>
   
+    <script>
+    $(document).ready(function() {
+    $('.popup-with-form').magnificPopup({
+        type: 'inline',
+        preloader: false,
+        focus: '#name',
 
+        // When elemened is focused, some mobile browsers in some cases zoom in
+        // It looks not nice, so we disable it:
+        callbacks: {
+            beforeOpen: function() {
+                if($(window).width() < 700) {
+                    this.st.focus = false;
+                } else {
+                    this.st.focus = '#name';
+                }
+             }
+            }
+        });
+    });
+    </script>
+
+    <script>
+
+    $(document).ready(function() {
+
+        $('.popup-with-form.email').click(function(){
+        
+            $('#inv_id').text(this.id); 
+
+            var t = $(this).parent().parent().parent().parent(); 
+
+            var customer_id  = t.find('.customer').html(); 
+            $('.customerID').val(customer_id); 
+
+        }); 
+
+        $('#email_submit').click(function(){
+        
+          var invoice_ID = parseInt($('#inv_id').text(), 10); 
+          var customer_id = $('.customerID').val(); 
+
+          var vto = $('#email_to').val();
+          var vsubject = $('#email_subject').val();
+          var vmessage = $('#email_message').val();
+
+          createInvoice(customer_id, invoice_ID); 
+
+          if(vto != ''){
+            $.ajax({
+                type: "post", 
+                url: "<?php echo base_url();?>/email/send_email",
+                data : {id: invoice_ID, to: vto, subject: vsubject, message: vmessage},
+                success: function(result){
+                    alert(result);
+                }, 
+                error: function(result){
+                    alert(result); 
+                }
+
+            }); 
+          }
+
+        }); 
+
+    });
+
+     function createInvoice(customerID, invoiceID){
+        $.ajax({
+            type: "post", 
+             url: "<?php echo base_url();?>/Download/savePDF",
+             data: {inv_id: invoiceID, c_id: customerID},
+             succes: function(){
+                
+             },
+             error: function(){
+                alert("Error creating PDF file"); 
+             }
+        })
+    }
+
+    </script>
 
 </body>
 

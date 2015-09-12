@@ -53,10 +53,11 @@ class Download extends CI_Controller {
 	}
 	
 
-	public function savePDF($invoice_id, $customer_id){
-		
-		$this->setSettings($invoice_id, $customer_id); 
+	public function savePDF(){
+
+		$this->setSettings($_POST['inv_id'], $_POST['c_id']); 
 		$this->excelObj->savePDF(); 
+
 	}
 
 }

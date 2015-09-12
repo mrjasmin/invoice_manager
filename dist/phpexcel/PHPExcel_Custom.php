@@ -171,7 +171,7 @@ class PHPExcel_Custom {
      public function savePDF(){
     	
 		$objWriter = PHPExcel_IOFactory::createWriter($this->objPHPExcel, 'PDF');
-		$objWriter->save('uploads/invoices/test.pdf');
+		$objWriter->save('uploads/invoices/invoice' . $this->invoice['ID']. '.pdf');
 		exit;
 		
     }

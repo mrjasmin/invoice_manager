@@ -1,5 +1,8 @@
 <?php
 
+
+
+
 class Index extends CI_Controller {
 
 	public function __construct(){
@@ -16,6 +19,9 @@ class Index extends CI_Controller {
 	}
 	
 	function index(){
+
+		
+		
 		if($this->session->userdata('logged_in')){
 			$data_array['total_invoices'] = $this->invoice->count_invoices(); 
 			$data_array['active_invoices'] = $this->invoice->count_active_invoices();
