@@ -136,7 +136,8 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Create new invoice</h1>
+                    <h1 class="page-header">Edit Invoice #<?php echo $invoice['reference_number']; ?></h1>
+
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -150,9 +151,9 @@
             }
             ?>
             
-             <?php echo form_open('invoices/new_invoice');  ?>
+             <?php echo form_open('invoices/edit_invoice/'.$invoice['ID']);  ?>
                 
-              <div class="row">
+             <div class="row">
                  <div class="col-md-6">
                     <label>Billing company</label>
                      <select name="company" class="form-control">
@@ -175,14 +176,14 @@
                     <div class="col-md-6">
                         <div class="form-group input-group">
                             <span class="input-group-addon"><i class="">Reference number</i></span>
-                            <input type="text" class="form-control" placeholder="" name="reference_number" >                                
+                            <input type="text" class="form-control" placeholder="" name="reference_number" value="<?php echo $invoice['reference_number']; ?>">                                
                         </div> 
                     </div>
 
                     <div class="col-md-6">
                            <div class="form-group input-group">
                             <span class="input-group-addon"><i class="">Discount</i></span>
-                            <input type="text" class="form-control" placeholder="" name="discount" >  
+                            <input type="text" class="form-control discount" placeholder="" name="discount" value="<?php echo $invoice['discount']; ?>" onChange="calculateTotalSum()">  
                             <span class="input-group-addon">%</span>  
                         </div>    
                     </div>
@@ -190,7 +191,7 @@
                     <div class="col-md-6">
                         <div class="form-group input-group">
                             <span class="input-group-addon"><i class="">Date due</i></span>
-                            <input type="text" class="form-control datepicker" placeholder="" name="date_due"> 
+                            <input type="text" class="form-control datepicker" placeholder="" name="date_due" value="<?php echo $invoice['date_due']; ?>" > 
                             <span class="input-group-addon"><i class="fa fa-calendar fa-fw"> </i></span>   
                         </div> 
                     </div>   
@@ -198,7 +199,7 @@
                      <div class="col-md-6">
                          <div class="form-group input-group">
                             <span class="input-group-addon"><i class="">Tax %</i></span>
-                            <input type="text" class="form-control" placeholder="" name="tax" > 
+                            <input type="text" class="form-control tax" placeholder="" name="tax" value="<?php echo $invoice['tax']; ?>" onChange="calculateTotalSum()"> 
                             <span class="input-group-addon">%</span>   
                         </div>  
                     </div>  
@@ -206,22 +207,22 @@
                      <div class="col-md-6">
                           <div class="form-group input-group">
                             <span class="input-group-addon"><i class="">Date </i></span>
-                            <input type="text" class="form-control datepicker" placeholder="" name="date_created"  >      
+                            <input type="text" class="form-control datepicker" placeholder="" name="date_created" value="<?php echo $invoice['date_created']; ?>" >      
                             <span class="input-group-addon"><i class="fa fa-calendar fa-fw"> </i></span>
                         </div> 
                     </div>
                     
                 </div>
-
+            
             <div class="row">
-              <div class="col-md-12">
+               <div class="col-md-12">
                <div class="table-responsive" id="order_form">
                    
+               
                    <div class="table-responsive" id="order_form">
                     <table class="table table-bordered table-hover table-striped" id="table_orders">
                         <thead>
                             <tr>
-                              
                                 <th>Products</th>
                                 <th>Quantity</th>
                                 <th>Price</th>
@@ -229,37 +230,55 @@
                             </tr>
                         </thead>
                         <tbody>   
-                            <tr>
-                               
+                            <?php foreach($orders as $order){  
+
+                                   
+                                ?>
+                                <tr>
                                 <td> 
+                                   
+                                    <input type="hidden" name="ID[]"  value="<?php echo $order['ID']; ?>">
+                                   
                                     <div class="form-group">
-                                        <input class="form-control input_fn" placeholder="article" name="article[]" id="article"> 
+                                        <input class="form-control input_fn" placeholder="article" name="article[<?php echo $count;?>]" id="<?php echo 'article' .$count;?>" value="<?php echo $order['article'];?>"> 
                                     </div>
                                     <div class="form-group">
-                                        <input class="form-control" placeholder="Description" name="description[]">
+                                        <input class="form-control" placeholder="Description" name="description[<?php echo $count;?>]" value="<?php echo $order['description'];?>">
                                     </div>
                                 </td>
                                 <td class="col-lg-1">
                                     <div class="form-group">
-                                        <input class="form-control input_fn" placeholder="" name="quantity[]" id="quantity">
+                                        <input class="form-control input_fn quantity" placeholder="" name="quantity[<?php echo $count;?>]" id="<?php echo $count;?>" value="<?php echo $order['quantity'];?>" 
+                                        onChange="calculateTotalRow(this)" >
                                     </div>
 
                                 </td>
                                 <td class="col-lg-2">
                                  <div class="form-group input-group">
                                     <span class="input-group-addon">$</span>
-                                    <input type="text" class="form-control input_fn" placeholder="" name="price[]" id="price">
+                                    <input type="text" class="form-control input_fn price" placeholder="" name="price[<?php echo $count;?>]" id="<?php echo $count;?>" value="<?php echo $order['price'];?>"
+                                     onChange="calculateTotalRow(this)">
                                 </div>
                             </td>
-                            <td class="col-lg-1">
-                                <label id="product_sum">133$</label>
+                            <td class="col-lg-1 product_sum_td">
+                                <label class="product_sum">
+                                    <?php echo $order['total']; ?>
+                                </label>
+                                <input type="hidden" name="total_row[<?php echo $count;?>]"  value="<?php echo $order['total'];?>" class="total_row">
                             </td>
-                            </tr></div>
+                            </tr>
+                           
+                             <?php
+                                ++$count; 
+                              }?>
+
+                             <input type="hidden" name="rows" class="rows" value="<?php echo $count; ?>">
+                            
                         </tbody>
                         </table>
-                    </div>
-
-               
+                 
+                    <!-- /.table-responsive -->   
+                </div> 
 
                  <table class="table table-bordered table-hover table-striped">
                         <thead>
@@ -276,17 +295,27 @@
                             </tr>
                         </tbody>
                     </table>
-              </div>
-           
-        <!-- col-lg-6 -->
-    </div>
-    <br/>
 
+                </div>
+
+            </div>
+        </div>
+           
+ 
+    <div class="row">
+         <div class="col-md-3">
+            <div id="totalSum">
+                TOTAL:<span><?php echo $invoice['total'];?></span>
+                <input type="hidden" name="total_invoice_sum" value="" class="total_invoice">
+            </div>
+        </div>
     </div>
+
+     <br/>
 
     <div class="row">  
         <div class="col-lg-3">
-             <?php $button = array('class' => 'btn btn-default', 'type' => 'submit', 'name' => 'submit', 'content' => 'Create invoice'); ?>
+             <?php $button = array('class' => 'btn btn-default', 'type' => 'submit', 'name' => 'submit', 'content' => 'Save changes'); ?>
 
              <?php echo form_button($button);?>
 
@@ -320,7 +349,7 @@
 
 
     <!-- Custom Theme JavaScript -->
-    <script src="<?php echo site_url('dist/js/clone-form-td-multiple.js'); ?>">
+    <script src="<?php echo site_url('dist/js/clone-form-td-multiple.js'); ?>"></script>
 
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
     <script>
@@ -341,37 +370,85 @@
     });
     </script>
 
-
     <script>
 
     $(document).ready(function(){
 
-        var counter = 5; 
+        var counter = $('.rows').val(); 
 
         $('#btnAdd').click(function(){
             if(counter > 10){
                 alert("Action is not allowed"); 
             }
-            else{
+            else{   
+
                 var element = $('<tr></tr>').attr("id", "order" + counter);     
 
-                element.html('<td><div class="form-group"><input class="form-control input_fn" placeholder="article" name="article[]" id="article"></div>' +
-                              '<div class="form-group"><input class="form-control" placeholder="Description" name="description[]"></div></td><td class="col-lg-1">' +
-                              '<div class="form-group"><input class="form-control input_fn" placeholder="" name="quantity[]" id="quantity"></div></td>' +
-                               '<td class="col-lg-2"><div class="form-group input-group"><span class="input-group-addon">$</span>' +
-                               '<input type="text" class="form-control input_fn" placeholder="" name="price[]" id="price"></div></td><td class="col-lg-1">' +
-                               '<label id="product_sum">133$</label></td>');  
-                              
+                element.html('<td><div class="form-group"><input class="form-control input_fn" placeholder="article" name="article['+ counter+']" id="'+counter+'"></div>' +
+                  '<div class="form-group"><input class="form-control" placeholder="Description" name="description[]"></div></td><td class="col-lg-1">' +
+                  '<div class="form-group"><input class="form-control input_fn quantity" placeholder="" name="quantity[' + counter+']" id="'+counter+'"  onChange="calculateTotalRow(this)"></div></td>' +
+                  '<td class="col-lg-2"><div class="form-group input-group"><span class="input-group-addon">$</span>' +
+                  '<input type="text" class="form-control input_fn price" placeholder="" name="price[' + counter+']" id="'+counter+'"  onChange="calculateTotalRow(this)"></div></td><td class="col-lg-1 product_sum_td">' +
+                  '<label class="product_sum">0</label><input type="hidden" name="total_row[' + counter+']" class="total_row">' +
+                  '</td>');  
+
                 element.appendTo('#table_orders'); 
+
                 ++counter; 
+
+                $('.rows').val(counter); 
+               
             }
         })
 
     }); 
-
-
     </script>
 
+
+    <script>
+
+     function calculateTotalRow(obj){
+
+        var id_row = obj.id;
+
+        var tr = $(obj).parent().parent().parent(); 
+
+        var quantity = tr.find('.form-control.input_fn.quantity').val(); 
+        var price = tr.find('.form-control.input_fn.price').val()
+
+        var totalPrice = quantity * price; 
+
+        tr.find('.product_sum').text(totalPrice); 
+
+        var total_row_array = tr.find(('input[name="total_row['+id_row+']"]')); 
+
+        total_row_array.val(totalPrice); 
+
+        console.log(total_row_array.val()); 
+
+        calculateTotalSum(); 
+
+     }
+
+     function calculateTotalSum(){
+
+        var totalSum = 0; 
+        var discount =  (1 - ($('.form-control.discount').val())/100).toFixed(2); 
+        var tax = 1 + ($('.form-control.tax').val())/100; 
+
+        $('#order_form .product_sum ').each(function(index){
+            totalSum +=parseInt($(this).text(), 10); 
+        }); 
+
+        var totalToPay = (tax * discount * totalSum).toFixed(2); 
+
+        $('#totalSum span').text(totalToPay); 
+
+        $('.total_invoice').val(totalToPay); 
+        
+     }
+
+    </script>
 
 
 </body>

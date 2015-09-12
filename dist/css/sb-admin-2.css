@@ -355,7 +355,7 @@ table.dataTable thead .sorting:after {
 
 /*  Invoice/Create New invoice */
 
-#product_sum { text-align: center; color: green; }
+
 
 
 
@@ -371,3 +371,18 @@ table.dataTable thead .sorting:after {
 .actions_list li {display: inline;  }
 
 .expiring_invoices {text-align: center; }
+
+.edit_invoice { margin-bottom : 20px;}
+
+.product_sum { text-align: center;  color: green;  margin-left: 10px;  }
+
+.col-lg-1.product_sum_td {   }
+
+#totalSum {  height: 40px;  background:  #5EB0CC; color: white; padding: 10px; font-weight: bold;}
+
+#totalSum span {  font-size: 16px; margin-left: 220px; }
+
+.hidden_form { visibility: hidden; display: none; }
+
+
+#number_rows 

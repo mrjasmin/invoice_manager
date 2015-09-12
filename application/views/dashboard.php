@@ -113,7 +113,18 @@
                         <li>
                             <a href="#"><i class="fa fa-wrench fa-fw"></i>Settings<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-
+                                 <li>
+                                    <a href="#">Companies</a>
+                                </li>
+                                <li>
+                                    <a href="#">New company</a>
+                                </li>
+                                 <li>
+                                    <a href="#">Paypal settings</a>
+                                </li>
+                                 <li>
+                                    <a href="#">System settings</a>
+                                </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>

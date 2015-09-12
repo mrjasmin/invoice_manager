@@ -13,6 +13,8 @@
 
   
 
+
+
      <!-- Bootstrap Core CSS -->
     <link href="<?php echo site_url('bower_components/bootstrap/dist/css/bootstrap.min.css');?>" rel="stylesheet">
 
@@ -36,6 +38,10 @@
 
     <!-- DataTables Responsive CSS -->
     <link href="<?php echo site_url('bower_components/datatables-responsive/css/dataTables.responsive.css');?>" rel="stylesheet">
+
+     <!-- DataTables Responsive CSS -->
+    <link href="<?php echo site_url('dist/css/all.min.css');?>" rel="stylesheet">
+   
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -143,6 +149,8 @@
             </div>
             <!-- /.row -->
 
+            <!-- link that opens popup -->
+            
             <div class="row">
                    <div class="panel-body">
                             <div class="dataTable_wrapper">
@@ -175,7 +183,7 @@
                                                 <ul class="actions_list">
                                                     <li><a href="<?php echo base_url().'Download/downloadPDF/' . $invoice['ID']. '/'. $invoice['customer'];?>" title="Download "><img src="<?php echo site_url().'img/pdf.png';?>"></a></li>
                                                     <li><a href="<?php echo base_url().'Download/downloadXLS/' . $invoice['ID']. '/'. $invoice['customer'];?>" title="edit"><img src="<?php echo site_url().'img/excel.png';?>"></a></li>
-                                                    <li><a href="#" title="edit"><img src="<?php echo site_url().'img/edit.png';?>"></a></li>
+                                                    <li><a href="<?php echo base_url(). 'invoices/edit_invoice_form/' . $invoice['ID'];?>"><img src="<?php echo site_url().'img/edit.png';?>"></a></li>
                                                     <li><a href="<?php echo base_url() . 'invoices/delete_invoice/' . $invoice['ID'];?>" title="delete"><img src="<?php echo site_url().'img/delete.png';?>"></a></li>
                                                     <li><a href="#" title="edit"><img src="<?php echo site_url().'img/email.png';?>"></a></li>
                                                </ul> 
@@ -203,6 +211,8 @@
     <!-- jQuery -->
     <script src="<?php echo site_url('bower_components/jquery/dist/jquery.min.js');?>"></script>
 
+    <script src="<?php echo site_url('dist/js/jquery.magnific-popup.min.js'); ?>"></script>
+
     <!-- Bootstrap Core JavaScript -->
     <script src="<?php echo site_url('bower_components/bootstrap/dist/js/bootstrap.min.js');?>"></script>
 
@@ -221,7 +231,6 @@
     <script src="<?php echo site_url('bower_components/datatables/media/js/jquery.dataTables.min.js');?>"></script>
     <script src="<?php echo site_url('bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js');?>"></script>
 
-  
 
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
     <script>
@@ -231,6 +240,7 @@
         });
     });
     </script>
+  
 
 
 </body>

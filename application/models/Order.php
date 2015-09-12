@@ -18,8 +18,8 @@ class Order extends MY_Model {
 		return $this->get_num_rows(); 
 	}
 
-	public function update_order($data){
-		$this->update($data); 
+	public function update_order($data, $id){
+		$this->update($data, $id); 
 	}
 
 	public function insert_order($data){
@@ -29,6 +29,10 @@ class Order extends MY_Model {
 	public function get_invoice_order($invoice_id){
 		$sql = "SELECT * FROM orders WHERE invoice_id = $invoice_id"; 
 		return $this->db->query($sql)->result('array'); 
+	}
+
+	public function delete_order($id){
+		$this->delete($id); 
 	}
 		
 }

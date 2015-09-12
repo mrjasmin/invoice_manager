@@ -42,9 +42,9 @@ class Migration_create_orders extends CI_Migration {
 	    $this->dbforge->add_key('ID', TRUE); 
 		$this->dbforge->create_table('orders');
 
-		//$sql = "ALTER TABLE orders ADD FOREIGN KEY (invoice_id) REFERENCES invoices(ID)";
+		$sql = "ALTER TABLE orders ADD FOREIGN KEY (invoice_id) REFERENCES invoices(ID)";
 
-		//$this->db->query($sql); 
+		$this->db->query($sql); 
 
 	}
 

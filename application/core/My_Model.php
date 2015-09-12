@@ -39,9 +39,9 @@ class MY_Model extends CI_Model {
 	public function delete($id){
 		$this->db->where($this->_primary_key, $id);
 		$this->db->delete($this->_table_name); 
+		
 	}
 	
-
 	public function get_num_rows(){
 		return $this->db->count_all($this->_table_name); 
 	}		

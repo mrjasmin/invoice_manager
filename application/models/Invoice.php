@@ -18,8 +18,8 @@ class Invoice extends MY_Model {
 		return $this->get_num_rows(); 
 	}
 
-	public function update_invoice($data){
-		$this->update($data); 
+	public function update_invoice($data, $id){
+		$this->update($data, $id); 
 	}
 
 	public function insert_invoice($data){
@@ -50,7 +50,6 @@ class Invoice extends MY_Model {
 
 	public function get_exipring_in($days){
 
-		
 		$sql = "SELECT * FROM $this->_table_name WHERE date_due - CURDATE() BETWEEN 1 AND $days;"; 
 
 		return $this->db->query($sql)->result('array'); 

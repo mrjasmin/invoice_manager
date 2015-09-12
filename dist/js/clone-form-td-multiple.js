@@ -31,12 +31,11 @@ $(function () {
     $('#btnAdd').click(function () {
         var num     = $('.clonedInput').length, // Checks to see how many "duplicatable" input fields we currently have
             newNum  = new Number(num + 1),      // The numeric ID of the new input field being added, increasing by 1 each time
-            newElem = $('#entry' + num).clone().attr('id', 'entry' + newNum).fadeIn('slow'); // create the new element via clone(), and manipulate it's ID using newNum value
+            newElem = $('.entry' + num).clone().attr('id', 'entry' + newNum).fadeIn('slow'); // create the new element via clone(), and manipulate it's ID using newNum value
     
-        console.log('hejsan'); 
 
     // Insert the new element after the last "duplicatable" input field
-        $('#entry' + num).after(newElem);
+        $('.entry' + num).after(newElem);
         $('#ID' + newNum + '_title').focus();
 
          $('#btnDel').attr('disabled', false);
@@ -52,7 +51,7 @@ $(function () {
             {
                 var num = $('.clonedInput').length;
                 // how many "duplicatable" input fields we currently have
-                $('#entry' + num).slideUp('slow', function () {$(this).remove();
+                $('.entry' + num).slideUp('slow', function () {$(this).remove();
                 // if only one element remains, disable the "remove" button
                     if (num -1 === 1)
                 $('#btnDel').attr('disabled', true);
