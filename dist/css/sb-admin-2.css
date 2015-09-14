@@ -376,8 +376,6 @@ table.dataTable thead .sorting:after {
 
 .product_sum { text-align: center;  color: green;  margin-left: 10px;  }
 
-.col-lg-1.product_sum_td {   }
-
 #totalSum {  height: 40px;  background:  #5EB0CC; color: white; padding: 10px; font-weight: bold;}
 
 #totalSum span {  font-size: 16px; margin-left: 220px; }
@@ -386,6 +384,10 @@ table.dataTable thead .sorting:after {
 
 .right_align {text-align: right; }
 
-.Active { background: #6CE065; text-align: center; color: #F5F5F5 ; }
+.Active {   text-align: center; color: #F5F5F5 ; padding-left: 0px; padding: 34px; margin: 0px;  }
 
 .Overdue { background: #E32020; text-align: center; }
+
+.Active a, .Overdue a { display: block; width: 100%; height: 100%;  text-decoration:none; color: inherit; background: #6CE065; border: 1px solid #C4C4C4; }
+
+.Active a:hover, .Overdue a:hover {text-decoration:none;}

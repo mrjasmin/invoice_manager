@@ -143,7 +143,26 @@
             
             <div class="row">
 
-            
+                <form id="invoice-status-form" class="mfp-hide white-popup-block">
+                    <h1>Change invoice status <label id="inv_id"></label></h1>
+                    <input type="hidden" name="customerID" class="customerID">
+                    <fieldset style="border:0;">
+                        <p>Choose new status below</p>
+                        <div class="form-group input-group">
+                              <select name="company" class="form-control">
+                                 <option>Active</option>
+                                 <option>Paid</option>
+                                 <option>Partially paid</option>
+                                 <option>Overdue</option>
+                              </select>                       
+                        </div> 
+                    </fieldset>
+
+                    <?php $button = array('class' => 'btn btn-default', 'id' => 'change_status', 'type' => 'submit', 'name' => 'submit', 'content' => 'Save'); ?>
+
+                    <?php echo form_button($button);?>
+                </form>
+                
 
                 <form id="test-form" class="mfp-hide white-popup-block">
                 <h1>Send invoice id <label id="inv_id"></label></h1>
@@ -199,7 +218,7 @@
                                              echo "<td class='right_align'>" .$invoice['paid_amount']. "</td>";
                                              $balance = $invoice['total'] - $invoice['paid_amount']; 
                                              echo "<td class='right_align'>" .$balance. "</td>";
-                                             echo "<td class='$invoice[status]'>" .$invoice['status']. "</td>"; ?>
+                                             echo "<td class='$invoice[status]'><a href='#invoice-status-form' class='popup-with-form'> .$invoice[status]. </td></a>"; ?>
                                               
                                              <td class="col-lg-1">
                                                 <ul class="actions_list">
@@ -261,8 +280,29 @@
     });
     </script>
   
+  
+
     <script>
     $(document).ready(function() {
+
+
+     $('.popup-with-form').magnificPopup({
+        type: 'inline',
+        preloader: false,
+
+        // When elemened is focused, some mobile browsers in some cases zoom in
+        // It looks not nice, so we disable it:
+        callbacks: {
+            beforeOpen: function() {
+                if($(window).width() < 700) {
+                    this.st.focus = false;
+                } else {
+                    this.st.focus = '#name';
+                }
+             }
+            }
+        });
+
     $('.popup-with-form').magnificPopup({
         type: 'inline',
         preloader: false,
