@@ -384,5 +384,8 @@ table.dataTable thead .sorting:after {
 
 .hidden_form { visibility: hidden; display: none; }
 
+.right_align {text-align: right; }
 
-#number_rows 
+.Active { background: #6CE065; text-align: center; color: #F5F5F5 ; }
+
+.Overdue { background: #E32020; text-align: center; }

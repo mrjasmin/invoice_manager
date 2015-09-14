@@ -10,7 +10,10 @@ class Invoice extends MY_Model {
 	
 	
 	public function get_invoices($id = NULL){
-		return $this->get($id); 
+
+		$sql = "SELECT * FROM invoices JOIN customers ON invoices.customer = customers.ID"; 
+		return $this->db->query($sql)->result('array'); 
+
 	}
 
 
@@ -39,7 +42,7 @@ class Invoice extends MY_Model {
 	}
 
 	public function most_recent_invoices($num){
-		$sql = "SELECT * FROM `invoices` ORDER BY date_created DESC LIMIT $num;";
+		$sql = "SELECT * FROM invoices JOIN customers ON invoices.customer = customers.ID ORDER BY date_created DESC LIMIT $num;";
 		return $this->db->query($sql)->result('array'); 
 	}
 
@@ -50,7 +53,7 @@ class Invoice extends MY_Model {
 
 	public function get_exipring_in($days){
 
-		$sql = "SELECT * FROM $this->_table_name WHERE date_due - CURDATE() BETWEEN 1 AND $days;"; 
+		$sql = "SELECT * FROM invoices JOIN customers ON invoices.customer = customers.ID WHERE date_due - CURDATE() BETWEEN 1 AND $days;"; 
 
 		return $this->db->query($sql)->result('array'); 
 

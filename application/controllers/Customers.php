@@ -22,9 +22,7 @@ class Customers extends CI_Controller {
 			$this->load->view('login'); 
 		}
 
-    
 	 }
-
    
     public function new_customer_form(){
     	$this->load->view('new_customer'); 
@@ -85,8 +83,4 @@ class Customers extends CI_Controller {
     	$this->customer->get_customers(); 
     }
 
-    public function get_customer_name($id){
-    	echo "xXX"; 
-    }
-	
 }

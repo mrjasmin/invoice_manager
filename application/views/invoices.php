@@ -32,9 +32,6 @@
     <!-- DataTables Responsive CSS -->
     <link href="<?php echo site_url('bower_components/datatables-responsive/css/dataTables.responsive.css');?>" rel="stylesheet">
 
-     <!-- DataTables Responsive CSS -->
-    <link href="<?php echo site_url('dist/css/all.min.css');?>" rel="stylesheet">
-   
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -184,6 +181,8 @@
                                             <th>Customer</th>
                                             <th>Total</th>
                                             <th>Paid</th>
+                                            <th>Balance</th>
+                                            <th>Status</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -195,10 +194,13 @@
                                              echo "<td>" .$invoice['date_created']. "</td>";
                                              echo "<td>" .$invoice['billing_company']. "</td>";
                                              echo "<td>" .$invoice['reference_number']. "</td>";
-                                             echo "<td class='customer' id='.invoice[customer]'>" .$invoice['customer']. "</td>";
-                                             echo "<td>" .$invoice['total']. "</td>";
-                                             echo "<td>" .$invoice['paid_amount']. "</td>"; ?>
-                                             
+                                             echo "<td class='customer' id='.invoice[customer]'>" .$invoice['company']. "</td>";
+                                             echo "<td class='right_align'>" .$invoice['total']. "</td>";
+                                             echo "<td class='right_align'>" .$invoice['paid_amount']. "</td>";
+                                             $balance = $invoice['total'] - $invoice['paid_amount']; 
+                                             echo "<td class='right_align'>" .$balance. "</td>";
+                                             echo "<td class='$invoice[status]'>" .$invoice['status']. "</td>"; ?>
+                                              
                                              <td class="col-lg-1">
                                                 <ul class="actions_list">
                                                     <li><a href="<?php echo base_url().'Download/downloadPDF/' . $invoice['ID']. '/'. $invoice['customer'];?>" title="Download "><img src="<?php echo site_url().'img/pdf.png';?>"></a></li>

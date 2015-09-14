@@ -259,12 +259,12 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                     <?php foreach($recent_invoices as $invoice){
+                                     <?php foreach($recent_invoices as $invoice){ 
                                          echo "<tr class='even gradeX'>";
                                          echo "<td>" .$invoice['ID']. "</td>";
                                          echo "<td>" .$invoice['date_created']. "</td>";
                                          echo "<td>" .$invoice['reference_number']. "</td>";
-                                         echo "<td>" .$invoice['customer']. "</td>";
+                                         echo "<td>" .$invoice['company']. "</td>";
                                          echo "<td>" .$invoice['total']. "</td>";
                                      }
                                      ?>
@@ -288,7 +288,16 @@
                    <div class="panel-body">
                      <div class="table-responsive">
                         <table class="table table-bordered table-hover table-striped">
-                            <thead>
+                             <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Date Due</th>
+                                        <th>Ref#</th>
+                                        <th>Customer</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
                              <tr>
                                <?php 
                                if($expiring_invoices == NULL){
@@ -300,7 +309,7 @@
                                    echo "<td>" .$invoice['ID']. "</td>";
                                    echo "<td>" .$invoice['date_due']. "</td>";
                                    echo "<td>" .$invoice['reference_number']. "</td>";
-                                   echo "<td>" .$invoice['customer']. "</td>";
+                                   echo "<td>" .$invoice['company']. "</td>";
                                    echo "<td>" .$invoice['total']. "</td>";
                                }
                            }

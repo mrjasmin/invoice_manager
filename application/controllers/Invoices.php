@@ -71,6 +71,8 @@ class Invoices extends CI_Controller {
 		redirect('invoices'); 
 	}
 
+
+
 	public function edit_invoice_form($id){
 		$data_array['customers'] = $this->customer->get_customers(); 
 		$data_array['invoice'] = $this->invoice->get_invoices($id); 
@@ -128,10 +130,8 @@ class Invoices extends CI_Controller {
    				}
    		}
 
-
    		
-
-   		//redirect('invoices'); 
+   		redirect('invoices'); 
    		
    		
    }

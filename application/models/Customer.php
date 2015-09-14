@@ -37,7 +37,7 @@ class Customer extends MY_Model {
 
 	public function get_customer_name($id){
 		$sql = "SELECT company FROM customers WHERE ID = $id";
-		$result = $this->db->query($sql); 
+		$result = $this->db->query($sql)->row_array(); 
 
 		return $result; 
 	}
