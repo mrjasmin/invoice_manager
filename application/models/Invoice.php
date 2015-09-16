@@ -11,8 +11,15 @@ class Invoice extends MY_Model {
 	
 	public function get_invoices($id = NULL){
 
-		$sql = "SELECT * FROM invoices JOIN customers ON invoices.customer = customers.ID"; 
-		return $this->db->query($sql)->result('array'); 
+		if($id == NULL){
+			$sql = "SELECT invoices.*, customers.company FROM invoices JOIN customers ON invoices.customer = customers.ID"; 
+			return $this->db->query($sql)->result('array'); 
+		}
+		else {
+			$query = $this->db->get_where($this->_table_name, array($this->_primary_key=>$id)); 
+			return $query->first_row('array'); 
+		}
+		
 
 	}
 
@@ -42,7 +49,7 @@ class Invoice extends MY_Model {
 	}
 
 	public function most_recent_invoices($num){
-		$sql = "SELECT * FROM invoices JOIN customers ON invoices.customer = customers.ID ORDER BY date_created DESC LIMIT $num;";
+		$sql = "SELECT invoices.*, customers.company FROM invoices JOIN customers ON invoices.customer = customers.ID ORDER BY date_created DESC LIMIT $num;";
 		return $this->db->query($sql)->result('array'); 
 	}
 
@@ -53,10 +60,16 @@ class Invoice extends MY_Model {
 
 	public function get_exipring_in($days){
 
-		$sql = "SELECT * FROM invoices JOIN customers ON invoices.customer = customers.ID WHERE date_due - CURDATE() BETWEEN 1 AND $days;"; 
+		$sql = "SELECT invoices.*, customers.company FROM invoices JOIN customers ON invoices.customer = customers.ID WHERE date_due - CURDATE() BETWEEN 1 AND $days;"; 
 
 		return $this->db->query($sql)->result('array'); 
 
+	}
+
+	public function change_status($id, $new_status){
+		$this->db->set('status', $new_status); 
+		$this->db->where($this->_primary_key, $id); 
+		$this->db->update($this->_table_name); 
 	}
 		
 }

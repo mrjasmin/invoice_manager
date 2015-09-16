@@ -384,10 +384,14 @@ table.dataTable thead .sorting:after {
 
 .right_align {text-align: right; }
 
-.Active {   text-align: center; color: #F5F5F5 ; padding-left: 0px; padding: 34px; margin: 0px;  }
+.Paid {   text-align: center; color: #F5F5F5 ; padding-left: 0px; padding: 34px; margin: 0px;  } 
 
-.Overdue { background: #E32020; text-align: center; }
+.Overdue { text-align: center; color: #F5F5F5 ; padding-left: 0px; padding: 34px; margin: 0px;  }
+.Pending { text-align: center; color: #F5F5F5 ; padding-left: 0px; padding: 34px; margin: 0px;  }
 
-.Active a, .Overdue a { display: block; width: 100%; height: 100%;  text-decoration:none; color: inherit; background: #6CE065; border: 1px solid #C4C4C4; }
+.Paid a  { margin-top: 4px; font-size: 11px; display: block; width: 100%; height: 100%;  text-decoration:none; color: inherit; background: #6CE065; border: 1px solid #C4C4C4; }
+.Overdue a { margin-top: 4px; font-size: 11px; display: block; width: 100%; height: 100%;  text-decoration:none; color: inherit; background: #E34139; border: 1px solid #C4C4C4; }
+.Pending a { margin-top: 4px; font-size: 11px; display: block; width: 100%; height: 100%;  text-decoration:none; color: inherit; background: #F58C31; border: 1px solid #C4C4C4; }
 
-.Active a:hover, .Overdue a:hover {text-decoration:none;}
+
+.Paid a:hover, .Overdue a:hover {text-decoration:none;}

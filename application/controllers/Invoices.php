@@ -133,7 +133,13 @@ class Invoices extends CI_Controller {
    		
    		redirect('invoices'); 
    		
-   		
+   }
+
+   public function set_invoice_status(){
+   	
+     $this->invoice->change_status($_POST['id'], $_POST['status']); 
+  	 redirect('invoices'); 
+ 
    }
 
 }

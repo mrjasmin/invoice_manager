@@ -145,15 +145,15 @@
 
                 <form id="invoice-status-form" class="mfp-hide white-popup-block">
                     <h1>Change invoice status <label id="inv_id"></label></h1>
-                    <input type="hidden" name="customerID" class="customerID">
+                    <input type="hidden" name="invoiceID" class="invoiceID">
                     <fieldset style="border:0;">
                         <p>Choose new status below</p>
                         <div class="form-group input-group">
-                              <select name="company" class="form-control">
-                                 <option>Active</option>
-                                 <option>Paid</option>
-                                 <option>Partially paid</option>
+                              <select name="status" class="form-control" id="status">
                                  <option>Overdue</option>
+                                 <option>Paid</option>
+                                 <option>Cancelled</option>
+                                 <option>Pending</option>
                               </select>                       
                         </div> 
                     </fieldset>
@@ -218,7 +218,7 @@
                                              echo "<td class='right_align'>" .$invoice['paid_amount']. "</td>";
                                              $balance = $invoice['total'] - $invoice['paid_amount']; 
                                              echo "<td class='right_align'>" .$balance. "</td>";
-                                             echo "<td class='$invoice[status]'><a href='#invoice-status-form' class='popup-with-form'> .$invoice[status]. </td></a>"; ?>
+                                             echo "<td class='$invoice[status]'><a href='#invoice-status-form' id='$invoice[ID]' class='popup-with-form status'> $invoice[status] </td></a>"; ?>
                                               
                                              <td class="col-lg-1">
                                                 <ul class="actions_list">
@@ -327,8 +327,10 @@
 
     $(document).ready(function() {
 
+
+
         $('.popup-with-form.email').click(function(){
-        
+
             $('#inv_id').text(this.id); 
 
             var t = $(this).parent().parent().parent().parent(); 
@@ -338,8 +340,41 @@
 
         }); 
 
+        $('.popup-with-form.status').click(function(){
+            
+            $('.invoiceID').val(this.id); 
+
+    
+        }); 
+
+        $('#change_status').click(function(){
+
+
+            $('#change_status').text("Loading...."); 
+
+            var invoice_ID = $('.invoiceID').val(); 
+            var new_status = $('#status').val(); 
+
+            if(new_status != ''){
+             $.ajax({ 
+                type: "post", 
+                url: "<?php echo base_url();?>/invoices/set_invoice_status",
+                data : {id: invoice_ID, status: new_status},
+                success: function(result){
+                    alert(result); 
+                }, 
+                error: function(result){
+                   alert(result); 
+                }
+              }); 
+            }
+            
+        }); 
+
         $('#email_submit').click(function(){
         
+          $('#email_submit').text("Loading....");     
+
           var invoice_ID = parseInt($('#inv_id').text(), 10); 
           var customer_id = $('.customerID').val(); 
 

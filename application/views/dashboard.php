@@ -123,7 +123,7 @@
                                     <a href="#">Paypal settings</a>
                                 </li>
                                  <li>
-                                    <a href="#">System settings</a>
+                                    <a href="<?php echo site_url(). 'Settings';?>">System settings</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
