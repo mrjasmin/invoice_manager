@@ -10,7 +10,7 @@ class Migration_create_invoices extends CI_Migration {
 		$this->dbforge->add_field(array(
 			'ID' => array(
 				'type' => 'INT',
-				'constraint' => 6,
+				'constraint' => 11,
 				'unsigned' => TRUE,
 				'auto_increment' => TRUE
 			),

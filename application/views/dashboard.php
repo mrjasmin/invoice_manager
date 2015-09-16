@@ -120,7 +120,7 @@
                                     <a href="#">New company</a>
                                 </li>
                                  <li>
-                                    <a href="#">Paypal settings</a>
+                                    <a href="<?php echo site_url(). 'Settings/paypal_settings'; ?>">Paypal settings</a>
                                 </li>
                                  <li>
                                     <a href="<?php echo site_url(). 'Settings';?>">System settings</a>

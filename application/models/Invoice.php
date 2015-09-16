@@ -71,6 +71,18 @@ class Invoice extends MY_Model {
 		$this->db->where($this->_primary_key, $id); 
 		$this->db->update($this->_table_name); 
 	}
+
+	public function update_paid($inv_id){
+
+		$sql_total_paid = "SELECT SUM(amount) AS total_paid_sum FROM payments WHERE invoice_id = $inv_id"; 
+		
+		$amount_paid = $this->db->query($sql_total_paid)->row()->total_paid_sum; 
+
+		$sql = "UPDATE invoices SET paid_amount = $amount_paid WHERE ID = $inv_id"; 
+	
+		$this->db->query($sql); 
+	
+	}
 		
 }
 

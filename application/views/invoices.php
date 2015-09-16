@@ -32,6 +32,9 @@
     <!-- DataTables Responsive CSS -->
     <link href="<?php echo site_url('bower_components/datatables-responsive/css/dataTables.responsive.css');?>" rel="stylesheet">
 
+    <!-- jQuery UI -->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -142,9 +145,35 @@
             <!-- link that opens popup -->
             
             <div class="row">
+              
+                <form id="add-payment-form" class="mfp-hide white-popup-block">
+                
+                <h2>Add payment <label id="inv_id"></label></h2>
+                <input type="hidden" name="p_invoiceID" class="p_invoiceID">
+                <fieldset style="border:0;">
+                 
+                    <div class="form-group">
+                        <label>Payment date</label>
+                        <input type="text" class="form-control datepicker" placeholder="" name="payment_date" value="" id="payment_date">                                
+                    </div> 
+                    <div class="form-group">
+                        <label>Amount</label>
+                        <input type="text" class="form-control"  id="payment_amount"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Note</label>
+                        <textarea class="form-control"  id="payment_note"></textarea>
+                    </div>
+                </fieldset>
+                    
+                     <?php $button = array('class' => 'btn btn-default', 'id' => 'add_payment', 'type' => 'submit', 'name' => 'submit', 'content' => 'Save'); ?>
+
+                     <?php echo form_button($button);?>
+
+                  </form>
 
                 <form id="invoice-status-form" class="mfp-hide white-popup-block">
-                    <h1>Change invoice status <label id="inv_id"></label></h1>
+                    <h2>Change invoice status <label id="inv_id"></label></h2>
                     <input type="hidden" name="invoiceID" class="invoiceID">
                     <fieldset style="border:0;">
                         <p>Choose new status below</p>
@@ -165,8 +194,8 @@
                 
 
                 <form id="test-form" class="mfp-hide white-popup-block">
-                <h1>Send invoice id <label id="inv_id"></label></h1>
-                <input type="hidden" name="customerID" class="customerID">
+                <h2>Send invoice id <label id="inv_id"></label></h2>
+                <input type="hidden" name="p_customerID" class="p_customerID">
                 <fieldset style="border:0;">
                     <p>Please fill in the information below</p>
                     <div class="form-group input-group">
@@ -222,6 +251,8 @@
                                               
                                              <td class="col-lg-1">
                                                 <ul class="actions_list">
+                                                    <li><a href="#add-payment-form" class="popup-with-form payment" title="Download" id="<?php echo $invoice['ID'];?>"><img src="<?php echo site_url().'img/view_payments.png';?>"></a></li>
+                                                    <li><a href="#add-payment-form" class="popup-with-form payment" title="Download" id="<?php echo $invoice['ID'];?>"><img src="<?php echo site_url().'img/add_payment.png';?>"></a></li>
                                                     <li><a href="<?php echo base_url().'Download/downloadPDF/' . $invoice['ID']. '/'. $invoice['customer'];?>" title="Download "><img src="<?php echo site_url().'img/pdf.png';?>"></a></li>
                                                     <li><a href="<?php echo base_url().'Download/downloadXLS/' . $invoice['ID']. '/'. $invoice['customer'];?>" title="edit"><img src="<?php echo site_url().'img/excel.png';?>"></a></li>
                                                     <li><a href="<?php echo base_url(). 'invoices/edit_invoice_form/' . $invoice['ID'];?>"><img src="<?php echo site_url().'img/edit.png';?>"></a></li>
@@ -271,6 +302,9 @@
     <!-- LightBox -->
     <script src="<?php echo site_url('dist/js/jquery.magnific-popup.min.js');?>"></script>
 
+    <!-- jQuery UI-->
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
     <script>
     $(document).ready(function() {
@@ -280,7 +314,23 @@
     });
     </script>
   
-  
+    <!-- DatePicker -->
+    <script>
+
+    $(function() {
+
+        //This is needed for the datepicker to be visible 
+        $("#payment_date").zIndex(9999); 
+
+        $( "#payment_date" ).datepicker({
+            dateFormat: 'yy-mm-dd',
+            autoclose: true
+
+        });
+       
+    });
+
+    </script>
 
     <script>
     $(document).ready(function() {
@@ -302,6 +352,8 @@
              }
             }
         });
+
+
 
     $('.popup-with-form').magnificPopup({
         type: 'inline',
@@ -328,6 +380,32 @@
     $(document).ready(function() {
 
 
+         $('#add_payment').click(function(){ 
+        
+          $('#add_payment').text("Loading....");   
+
+              var invoice_ID = $('.p_invoiceID').val(); 
+
+              var p_date = $('#payment_date').val(); 
+              var amount = $('#payment_amount').val(); 
+              var note =  $('#payment_note').val(); 
+
+              if(p_date != '' && amount != ''){ 
+                 $.ajax({
+                 type: "post",
+                 data: {inv_ID: invoice_ID, date: p_date, amount: amount, note: note}, 
+                 url: "<?php echo base_url();?>/Payments/new_payment",
+                 succes: function(result){
+                    alert(result);
+                 },
+                 error:function(result){
+                    alert(result); ; 
+                  }
+              }); 
+            }
+
+
+         });
 
         $('.popup-with-form.email').click(function(){
 
@@ -347,8 +425,15 @@
     
         }); 
 
-        $('#change_status').click(function(){
+         $('.popup-with-form.payment').click(function(){
 
+           $('.p_invoiceID').val(this.id); 
+
+         
+
+        }); 
+
+        $('#change_status').click(function(){
 
             $('#change_status').text("Loading...."); 
 
