@@ -9,9 +9,15 @@ class Payment extends MY_Model {
 	protected $_order_type ="ASC"; 
 	
 
-	public function get_payment($invoice_id = NULL){
+	public function get_payments($invoice_id = NULL){
+		if($invoice_id == NULL){
+			return $this->get($invoice_id); 
+		}
+		else {
+			$sql = "SELECT * FROM payments WHERE invoice_id = $invoice_id";
+			return $this->db->query($sql)->result('array'); 
+		}
 	
-		return $this->get($invoice_id); 
 	}
 
 

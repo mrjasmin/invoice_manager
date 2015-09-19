@@ -28,7 +28,8 @@ class Index extends CI_Controller {
 			$data_array['total_customers'] = $this->customer->count_customers(); 
 			$data_array['recent_invoices'] = $this->invoice->most_recent_invoices(4); 
 			$data_array['expiring_invoices'] = $this->invoice->get_exipring_in(5); 
-		
+			$data_array['overdue_invoices'] = $this->invoice->get_overdue_invoices(); 
+
 			$this->load->view('dashboard', $data_array);  
 		}
 		else {

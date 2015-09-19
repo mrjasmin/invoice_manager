@@ -145,6 +145,23 @@
             <!-- link that opens popup -->
             
             <div class="row">
+                <form id="view-payments" class="mfp-hide white-popup-block">
+                 <input type="hidden" name="payments_invoiceID" class="payments_invoiceID">
+                    <div class="table-responsive">
+                        <h3>Paments for invoice <span class="payment_invoice_id"></span></h3>
+                            <table class="table table-bordered table-hover table-striped" id="paymentsTable">
+                                <thead>
+                                    <tr>
+                                        <th>Date Added</th>
+                                        <th>Amount</th>
+                                        <th>Note</th>
+                                    </tr>
+                                </thead>
+                                <tbody>    
+                                </tbody>
+                            </table>
+                        </div>
+                 </form>
               
                 <form id="add-payment-form" class="mfp-hide white-popup-block">
                 
@@ -251,7 +268,7 @@
                                               
                                              <td class="col-lg-1">
                                                 <ul class="actions_list">
-                                                    <li><a href="#add-payment-form" class="popup-with-form payment" title="Download" id="<?php echo $invoice['ID'];?>"><img src="<?php echo site_url().'img/view_payments.png';?>"></a></li>
+                                                    <li><a href="#view-payments" class="popup-with-form payments" title="Download" id="<?php echo $invoice['ID'];?>"><img src="<?php echo site_url().'img/view_payments.png';?>"></a></li>
                                                     <li><a href="#add-payment-form" class="popup-with-form payment" title="Download" id="<?php echo $invoice['ID'];?>"><img src="<?php echo site_url().'img/add_payment.png';?>"></a></li>
                                                     <li><a href="<?php echo base_url().'Download/downloadPDF/' . $invoice['ID']. '/'. $invoice['customer'];?>" title="Download "><img src="<?php echo site_url().'img/pdf.png';?>"></a></li>
                                                     <li><a href="<?php echo base_url().'Download/downloadXLS/' . $invoice['ID']. '/'. $invoice['customer'];?>" title="edit"><img src="<?php echo site_url().'img/excel.png';?>"></a></li>
@@ -429,7 +446,37 @@
 
            $('.p_invoiceID').val(this.id); 
 
-         
+        }); 
+
+        $('.popup-with-form.payments').click(function(){
+
+             i_id = this.id; 
+
+             $('.payment_invoice_id').text(i_id); 
+
+             var html = '';
+    
+             $('#paymentsTable tbody').empty(); 
+
+             $.ajax({ 
+                type: "post", 
+                url: "<?php echo base_url();?>/payments/get_payments_AJAX/",
+                data : {invoice_ID: i_id},
+                dataType: "json",
+                async:   false,
+                success: function(result){
+
+                    $.each(result, function(i, item){
+                      html += '<tr>' + '<td>' + item['date'] + '</td>' + '<td>' + item['amount'] + '</td>' + '<td>' + item['note'] + '</td>' + '</tr>'; 
+                    }); 
+
+                }, 
+                error: function(result){
+                   alert(result); 
+                }
+              }); 
+
+              $('#paymentsTable tbody').append(html);  
 
         }); 
 

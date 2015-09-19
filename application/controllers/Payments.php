@@ -15,7 +15,6 @@ class Payments extends CI_Controller {
 	public function index(){
 
 
-
 	}
 
 	public function new_payment(){ 
@@ -23,7 +22,14 @@ class Payments extends CI_Controller {
 		$data_array = array('invoice_id' => $_POST['inv_ID'], 'amount' => $_POST['amount'], 'note' => $_POST['note'], 'date' => $_POST['date']); 
 		$this->payment->insert_payment($data_array); 
 		$this->invoice->update_paid($_POST['inv_ID']); 
+		
 		redirect('invoices'); 
 	}	
+
+
+	public function get_payments_AJAX(){
+		echo json_encode($this->payment->get_payments($_POST['invoice_ID']));  
+		
+	}
 
 }

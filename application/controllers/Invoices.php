@@ -11,12 +11,14 @@ class Invoices extends CI_Controller {
 		$this->load->model('customer');
 		$this->load->model('invoice');
 		$this->load->model('order');
+		$this->load->model('payment');
 	}
 	
 	public function index(){
 		if($this->session->userdata('logged_in')){
 			$data_array['invoices'] = $this->invoice->get_invoices(); 
 			$data_array['customers'] = $this->customer->get_customers(); 
+			$data_array['payments'] = $this->payment->get_payments(); 
 
 			$this->load->view('invoices', $data_array); 
 		}

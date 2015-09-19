@@ -51,4 +51,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 $route['default_controller'] = 'index';
 $route['404_override'] = '';
+
+if (config_item('installed') == 'no')
+{
+ 	$route["default_controller"] = "install";
+}
+
 $route['translate_uri_dashes'] = FALSE;

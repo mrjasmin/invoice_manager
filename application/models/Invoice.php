@@ -42,9 +42,14 @@ class Invoice extends MY_Model {
 	}
 	
 
+	public function get_overdue_invoices(){
+		$sql = "SELECT * FROM invoices WHERE status = 'Overdue'"; 
+		return $this->db->query($sql)->num_rows(); 
+	}
+
 	public function count_active_invoices(){
 
-		$sql = "SELECT * FROM invoices WHERE `status`= 'Active'";
+		$sql = "SELECT * FROM invoices WHERE status <> 'Paid'";
 		return $this->db->query($sql)->num_rows(); 
 	}
 
